@@ -5,7 +5,7 @@ import React from "react";
 function Navbar() {
   return (
     <nav className="navbar sticky-top navbar-light" style={{ backgroundColor: "#e3f2fd" }}>
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/">
         Insta Bill
       </a>
       <button
@@ -22,12 +22,12 @@ function Navbar() {
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
         <ul className="navbar-nav">
           <li className="nav-item active">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/new">
               New Note 
             </a>
           </li>
           <li className="nav-item active">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/all">
               All Notes
             </a>
           </li>

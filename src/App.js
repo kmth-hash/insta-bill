@@ -3,6 +3,7 @@ import ReadForm from "./ReadForm";
 import Navbar from "./Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
+import AllNotes from "./AllNotes";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/new" element={<ReadForm />} />
-          <Route path="/all" element={<ReadForm />} />
+          <Route path="/all" element={<AllNotes />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
