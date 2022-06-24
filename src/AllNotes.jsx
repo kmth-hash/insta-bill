@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NoteCard from "./NoteCard";
-import { getallnotes } from "./api_call";
-import { onValue, ref, set, child, get } from "firebase/database";
+import { onValue, ref, } from "firebase/database";
 import { rtdb } from "./config";
 
 function AllNotes() {

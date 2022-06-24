@@ -2,13 +2,24 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { getID, addNewEntry } from "./api_call";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function ReadForm() {
   let navigateTo = useNavigate();
+  const [flag, setflag] = useState({
+    size: false,
+    thickness: false,
+    frame: false,
+    qty: false,
+  });
   const initState = {
     orderNo: "",
-    orderDate: new Date().getFullYear()+"-"+('00'+(new Date().getMonth()+1)).slice(-2)+"-"+('00'+(new Date().getDate())).slice(-2),
+    orderDate:
+      new Date().getFullYear() +
+      "-" +
+      ("00" + (new Date().getMonth() + 1)).slice(-2) +
+      "-" +
+      ("00" + new Date().getDate()).slice(-2),
     studio: "",
     place: "",
     mobile: "",
@@ -20,7 +31,9 @@ function ReadForm() {
     deliveryDate: "",
     term: "",
     photo: "",
+    code: "",
   };
+
   const terms = [
     { value: "Cash", label: "Cash" },
     { value: "Credit", label: "Credit" },
@@ -44,7 +57,29 @@ function ReadForm() {
     { value: "Glitter", label: "Glitter" },
     { value: "Canvas", label: "Canvas" },
     { value: "None", label: "None" },
-  ]
+  ];
+  const codes = [
+    { value: "A", label: "A" },
+    { value: "B", label: "B" },
+    { value: "C", label: "C" },
+    { value: "D", label: "D" },
+    { value: "E", label: "E" },
+    { value: "F", label: "F" },
+    { value: "G", label: "G" },
+    { value: "H", label: "H" },
+    { value: "I", label: "I" },
+    { value: "J", label: "J" },
+    { value: "K", label: "K" },
+    { value: "L", label: "L" },
+    { value: "M", label: "M" },
+    { value: "N", label: "N" },
+    { value: "O", label: "O" },
+    { value: "P", label: "P" },
+    { value: "Q", label: "Q" },
+    { value: "R", label: "R" },
+    { value: "S", label: "S" },
+    { value: "T", label: "T" },
+  ];
   const sizes = [
     { value: "4x6", label: "4x6" },
     { value: "5x7", label: "5x7" },
@@ -82,32 +117,33 @@ function ReadForm() {
     { value: "No", label: "No" },
   ];
 
-  const handleSubmit=(e)=>{
-    // console.log(e);    
+  const handleStuff = (key,e)=>{
+    console.log(key , e.value);
+    if(e.value==='Custom')
+    {
+      setflag({...flag , [key] : true});
+      setitem({...item, [key] : ''});
+    }
+    
+  }
+  const handleSubmit = (e) => {
+    // console.log(e);
     // e.preventDefault();
     let flag = true;
-    Object.keys(item).map((v)=>{
-      if(!item[v])
-      {
+    Object.keys(item).map((v) => {
+      if (!item[v]) {
         flag = false;
-        
       }
     });
-    if(flag===false)
-    {
+    if (flag === false) {
       alert("Missing details. Please fill all the fields");
-
-    }
-    else {
+    } else {
       // console.log(item);
       addNewEntry(item);
       alert("Item Added");
-      navigateTo('/',{replace:true});
+      navigateTo("/", { replace: true });
     }
-
-
-
-  }
+  };
 
   const [item, setitem] = useState(initState);
 
@@ -124,13 +160,18 @@ function ReadForm() {
   }, []);
 
   useEffect(() => {
-  
-  console.log(item);
+    console.log(item);
     // return () => {
     //   second
     // }
-  }, [item])
-  
+  }, [item]);
+
+  useEffect(() => {
+    console.log(flag);
+    // return () => {
+    //   second
+    // }
+  }, [flag]);
 
   return (
     <div className="jumbotron m-3 text-dark ">
@@ -143,53 +184,210 @@ function ReadForm() {
           <h6 className="row-12">Date :</h6>
           <h4 className="row-12">{item.orderDate}</h4>
         </div>
-        
+
         <div className="col-12 pt-1">
-          <label htmlFor="studio" className="col-12 text-left pl-0">Studio/Party</label>
-          <input type="text" className="form-control col-12" onChange={(e)=>{setitem({...item , studio : e.target.value});}} value={item.studio} />
+          <label htmlFor="studio" className="col-12 text-left pl-0">
+            Studio/Party
+          </label>
+          <input
+            type="text"
+            className="form-control col-12"
+            onChange={(e) => {
+              setitem({ ...item, studio: e.target.value });
+            }}
+            value={item.studio}
+          />
         </div>
         <div className="col-12 pt-1">
-          <label htmlFor="place" className="col-12 text-left pl-0">Place</label>
-          <input type="text" className="form-control col-12" onChange={(e)=>{setitem({...item , place : e.target.value});}} value={item.place} />
+          <label htmlFor="place" className="col-12 text-left pl-0">
+            Place
+          </label>
+          <input
+            type="text"
+            className="form-control col-12"
+            onChange={(e) => {
+              setitem({ ...item, place: e.target.value });
+            }}
+            value={item.place}
+          />
         </div>
         <div className="col-12 pt-1">
-          <label htmlFor="mobile" className="col-12 text-left pl-0">Contact No</label>
-          <input type="number|10" className="form-control col-12" onChange={(e)=>{setitem({...item , mobile : e.target.value});}} value={item.mobile} />
+          <label htmlFor="mobile" className="col-12 text-left pl-0">
+            Contact No
+          </label>
+          <input
+            type="number"
+            className="form-control col-12"
+            pattern="[1-9]{10}"
+            title="Enter valid Contact No"
+            onChange={(e) => {
+              setitem({ ...item, mobile: e.target.value });
+            }}
+            value={item.mobile}
+          />
         </div>
         <div className="col-6 pt-1">
-          <label htmlFor="sizes" className="col-12 p-0 text-left">Size</label>
-          <Select isSearchable={false} inputprops={{readOnly:true}} options={sizes} value={item.size.trim()? {label:item.size,value:item.size}: '' } onChange={(e)=>{setitem({...item , size : e.value})}}></Select>
+          <label htmlFor="sizes" className="col-12 p-0 text-left">
+            Size
+          </label>
+          {flag.size 
+          ?
+            <input type="text" className="form-control" placeholder="15x13" onChange={(e)=>{setitem({...item , size : e.target.value})}} />
+          :
+          <Select
+          isSearchable={false}
+          inputprops={{ readOnly: true }}
+          options={sizes}
+          value={
+            item.size.trim() ? { label: item.size, value: item.size } : ""
+          }
+          onChange={(e) => {
+            handleStuff('size' , e);
+          }}
+        ></Select>
+          }
         </div>
         <div className="col-6 pt-1">
-          <label htmlFor="thickness" className="col-12 p-0 text-left">Thickness</label>
-          <Select isSearchable={false} inputprops={{readOnly:true}} options={thicknesses} value={item.thickness.trim()? {label:item.thickness,value:item.thickness}: '' } onChange={(e)=>{setitem({...item , thickness : e.value})}} ></Select>
+          <label htmlFor="thickness" className="col-12 p-0 text-left">
+            Thickness
+          </label>
+          {flag.thickness 
+          ?
+            <input type="text" className="form-control" placeholder="4.75" onChange={(e)=>{setitem({...item , thickness : e.target.value})}} />
+          :
+          <Select
+            isSearchable={false}
+            inputprops={{ readOnly: true }}
+            options={thicknesses}
+            value={
+              item.thickness.trim()
+                ? { label: item.thickness, value: item.thickness }
+                : ""
+            }
+            onChange={(e) => {
+              handleStuff('thickness' , e);
+            }}
+          ></Select>
+          }
         </div>
         <div className="col-6 pt-1">
-          <label htmlFor="frames" className="col-12 p-0 text-left">Frames</label>
-          <Select isSearchable={false} inputprops={{readOnly:true}} options={frames} value={item.frame.trim()? {label:item.frame,value:item.frame}: '' } onChange={(e)=>{setitem({...item , frame : e.value})}}></Select>
+          <label htmlFor="frames" className="col-12 p-0 text-left">
+            Frames
+          </label>
+          {flag.frame 
+          ?
+            <input type="text" className="form-control" placeholder="Custom Frame" onChange={(e)=>{setitem({...item , frame : e.target.value})}} />
+          :
+          <Select
+            isSearchable={false}
+            inputprops={{ readOnly: true }}
+            options={frames}
+            value={
+              item.frame.trim() ? { label: item.frame, value: item.frame } : ""
+            }
+            onChange={(e) => {
+              handleStuff('frame' , e);
+            }}
+          ></Select>
+}
         </div>
         <div className="col-6 pt-1">
-          <label htmlFor="qty" className="col-12 p-0 text-left">Quantity</label>
-          <Select isSearchable={false} inputprops={{readOnly:true}} options={qtys} value={item.qty.trim()? {label:item.qty,value:item.qty}: '' } onChange={(e)=>{setitem({...item , qty : e.value})}}></Select>
+          <label htmlFor="qty" className="col-12 p-0 text-left">
+            Quantity
+          </label>
+          {flag.qty 
+          ?
+            <input type="text" className="form-control" placeholder="150" onChange={(e)=>{setitem({...item , qty : e.target.value})}} />
+          :
+          <Select
+            isSearchable={false}
+            inputprops={{ readOnly: true }}
+            options={qtys}
+            value={item.qty.trim() ? { label: item.qty, value: item.qty } : ""}
+            onChange={(e) => {
+              handleStuff('qty' , e);
+            }}
+          ></Select>
+}
         </div>
         <div className="col-6 pt-1">
-          <label htmlFor="lams" className="col-12 p-0 text-left">Lamination</label>
-          <Select isSearchable={false} inputprops={{readOnly:true}} options={lams} value={item.lam.trim()? {label:item.lam,value:item.lam}: '' } onChange={(e)=>{setitem({...item , lam : e.value})}}></Select>
+          <label htmlFor="lams" className="col-12 p-0 text-left">
+            Lamination
+          </label>
+          <Select
+            isSearchable={false}
+            inputprops={{ readOnly: true }}
+            options={lams}
+            value={item.lam.trim() ? { label: item.lam, value: item.lam } : ""}
+            onChange={(e) => {
+              setitem({ ...item, lam: e.value });
+            }}
+          ></Select>
         </div>
         <div className="col-6 pt-1">
-          <label htmlFor="term" className="col-12 p-0 text-left">Term</label>
-          <Select isSearchable={false} options={terms} value={item.term.trim()? {label:item.term,value:item.term}: '' } onChange={(e)=>{setitem({...item , term : e.value})}}></Select>
+          <label htmlFor="term" className="col-12 p-0 text-left">
+            Term
+          </label>
+          <Select
+            isSearchable={false}
+            options={terms}
+            value={
+              item.term.trim() ? { label: item.term, value: item.term } : ""
+            }
+            onChange={(e) => {
+              setitem({ ...item, term: e.value });
+            }}
+          ></Select>
         </div>
         <div className="col-6 pt-1">
-          <label htmlFor="photo" className="col-12 p-0 text-left">Photo</label>
-          <Select  isSearchable={false} inputprops={{ readOnly : true}} options={photos} value={item.photo.trim()? {label:item.photo,value:item.photo}: '' } onChange={(e)=>{setitem({...item , photo : e.value})}}></Select>
+          <label htmlFor="code" className="col-12 p-0 text-left">
+            Code
+          </label>
+          <Select
+            isSearchable={false}
+            inputprops={{ readOnly: true }}
+            options={codes}
+            value={
+              item.code.trim() ? { label: item.code, value: item.code } : ""
+            }
+            onChange={(e) => {
+              setitem({ ...item, code: e.value });
+            }}
+          ></Select>
+        </div>
+        <div className="col-6 pt-1">
+          <label htmlFor="photo" className="col-12 p-0 text-left">
+            Photo
+          </label>
+          <Select
+            isSearchable={false}
+            inputprops={{ readOnly: true }}
+            options={photos}
+            value={
+              item.photo.trim() ? { label: item.photo, value: item.photo } : ""
+            }
+            onChange={(e) => {
+              setitem({ ...item, photo: e.value });
+            }}
+          ></Select>
         </div>
         <div className="col-6 pt-1 ">
-          <label htmlFor="Delivery_Date" className="col-12 text-left pl-0">Delivery Date</label>
-          <input type="Date" className="form-control col-12" onChange={(e)=>{ setitem({...item , deliveryDate : e.target.value}) }} value={item.deliveryDate} />
+          <label htmlFor="Delivery_Date" className="col-12 text-left pl-0">
+            Delivery Date
+          </label>
+          <input
+            type="Date"
+            className="form-control col-12"
+            onChange={(e) => {
+              setitem({ ...item, deliveryDate: e.target.value });
+            }}
+            value={item.deliveryDate}
+          />
         </div>
         <div className="col-12 border d-flex pt-2 flex-column">
-          <button className="btn btn-success" onClick={handleSubmit}>Submit</button>
+          <button className="btn btn-success" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </div>
     </div>

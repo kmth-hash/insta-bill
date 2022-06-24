@@ -1,6 +1,6 @@
-import { app, rtdb, db } from "./config";
+import { rtdb, db } from "./config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { onValue, ref, set, child, get } from "firebase/database";
+import {  ref, set } from "firebase/database";
 
 const getID = async () => {
   const dbRef = doc(db, "insta-bill", "items");
