@@ -23,9 +23,16 @@ const updateID = async (ID) => {
   });
 };
 
+const deleteNoteByID=(ID)=>{
+  console.log(ID);
+  const dbRef = ref(rtdb, `items/${ID}`);
+  // delete obj['orderNo'];
+  set(dbRef, null);  
+}
+
 const getallnotes = async() => {  
   
   // console.log(res);
 };
 
-export { getID, addNewEntry, updateID, getallnotes };
+export { getID, addNewEntry, updateID, getallnotes, deleteNoteByID };

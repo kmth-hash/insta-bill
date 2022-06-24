@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { Receipt} from 'react-bootstrap-icons';
 
 function Navbar() {
   return (
     <nav className="navbar sticky-top navbar-light" style={{ backgroundColor: "#e3f2fd" }}>
-      <a className="navbar-brand" href="/">
-        Insta Bill
+      <a className="navbar-brand" style={{height : '30px'}} href="/">
+        <Receipt style={{marginRight : '5px'}}/>Insta Bill
       </a>
       <button
         className="navbar-toggler"

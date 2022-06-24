@@ -11,7 +11,8 @@ function AllNotes() {
       return onValue(
         ref(rtdb, "/items"),
         async (snapshot) => {
-          let res = await snapshot.val();
+          let res = {};
+          res = await snapshot.val();
           console.log(res);
           setitemData(res);
         },
@@ -22,6 +23,15 @@ function AllNotes() {
     };
     fetchdata();
   }, []);
+
+  if(!itemData || Object.keys(itemData).length===0)
+  return(
+    <div className="container h-100 m-0 p-2 my-auto">
+      <div className="text-dark font-weight-bold jumbotron">
+        No Notes
+      </div>
+    </div>
+  )
 
   return (
     <div className="container mt-2 bg-dark">

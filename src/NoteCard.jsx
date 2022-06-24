@@ -1,8 +1,18 @@
 import React , {useEffect,useState} from 'react';
+import { TrashFill } from 'react-bootstrap-icons';
+import {deleteNoteByID} from './api_call';
+import {useNavigate} from 'react-router-dom';
 
 function NoteCard(noteData) {
+    let navigateTo = useNavigate();
     const [note, setnote] = useState({});
     
+    const handleDelete =()=>{
+        console.log('deleted');
+        deleteNoteByID(note.orderNo);
+        alert("Note Deleted!");
+        navigateTo(0);
+    }
     useEffect(() => {
       setnote(noteData.noteData);
     
@@ -14,12 +24,17 @@ function NoteCard(noteData) {
   return (
     <div className='container m-0 font-weight-bold'>
         <div className="container border m-2 p-1 d-flex row">
-        <div className='col-6 text-left'>
+        <div className='col-5 text-left'>
             <label ><span className="font-weight-light">
                 Order</span> : #{note.orderNo}</label>
         </div>
-        <div className='col-6 text-left'>
+        <div className='col-5 text-left'>
             <label >{note.orderDate}</label>
+        </div>
+        <div className='col-2 text-left p-1 '>
+            <div className='border rounded mx-auto d-flex justify-content-center' style={{color :'#F87474', width : '1.5rem' , height : '1.5rem'}}>
+                <TrashFill className="my-auto " onClick={()=>{handleDelete()}}/>
+            </div>
         </div>
         <div className='col-12 text-left'>
             <label ><span className="font-weight-light">Studio</span> : {note.studio}</label>

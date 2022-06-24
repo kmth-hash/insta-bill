@@ -99,7 +99,7 @@ function ReadForm() {
 
     }
     else {
-      console.log(item);
+      // console.log(item);
       addNewEntry(item);
       alert("Item Added");
       navigateTo('/',{replace:true});
@@ -119,7 +119,7 @@ function ReadForm() {
     fetchData();
 
     return () => {
-      console.log("end");
+      // console.log("end");
     };
   }, []);
 
@@ -158,33 +158,33 @@ function ReadForm() {
         </div>
         <div className="col-6 pt-1">
           <label htmlFor="sizes" className="col-12 p-0 text-left">Size</label>
-          <Select options={sizes} value={item.size.trim()? {label:item.size,value:item.size}: '' } onChange={(e)=>{setitem({...item , size : e.value})}}></Select>
+          <Select isSearchable={false} inputprops={{readOnly:true}} options={sizes} value={item.size.trim()? {label:item.size,value:item.size}: '' } onChange={(e)=>{setitem({...item , size : e.value})}}></Select>
         </div>
         <div className="col-6 pt-1">
           <label htmlFor="thickness" className="col-12 p-0 text-left">Thickness</label>
-          <Select options={thicknesses} value={item.thickness.trim()? {label:item.thickness,value:item.thickness}: '' } onChange={(e)=>{setitem({...item , thickness : e.value})}} ></Select>
+          <Select isSearchable={false} inputprops={{readOnly:true}} options={thicknesses} value={item.thickness.trim()? {label:item.thickness,value:item.thickness}: '' } onChange={(e)=>{setitem({...item , thickness : e.value})}} ></Select>
         </div>
         <div className="col-6 pt-1">
           <label htmlFor="frames" className="col-12 p-0 text-left">Frames</label>
-          <Select options={frames} value={item.frame.trim()? {label:item.frame,value:item.frame}: '' } onChange={(e)=>{setitem({...item , frame : e.value})}}></Select>
+          <Select isSearchable={false} inputprops={{readOnly:true}} options={frames} value={item.frame.trim()? {label:item.frame,value:item.frame}: '' } onChange={(e)=>{setitem({...item , frame : e.value})}}></Select>
         </div>
         <div className="col-6 pt-1">
           <label htmlFor="qty" className="col-12 p-0 text-left">Quantity</label>
-          <Select options={qtys} value={item.qty.trim()? {label:item.qty,value:item.qty}: '' } onChange={(e)=>{setitem({...item , qty : e.value})}}></Select>
+          <Select isSearchable={false} inputprops={{readOnly:true}} options={qtys} value={item.qty.trim()? {label:item.qty,value:item.qty}: '' } onChange={(e)=>{setitem({...item , qty : e.value})}}></Select>
         </div>
         <div className="col-6 pt-1">
           <label htmlFor="lams" className="col-12 p-0 text-left">Lamination</label>
-          <Select options={lams} value={item.lam.trim()? {label:item.lam,value:item.lam}: '' } onChange={(e)=>{setitem({...item , lam : e.value})}}></Select>
+          <Select isSearchable={false} inputprops={{readOnly:true}} options={lams} value={item.lam.trim()? {label:item.lam,value:item.lam}: '' } onChange={(e)=>{setitem({...item , lam : e.value})}}></Select>
         </div>
         <div className="col-6 pt-1">
           <label htmlFor="term" className="col-12 p-0 text-left">Term</label>
-          <Select options={terms} value={item.term.trim()? {label:item.term,value:item.term}: '' } onChange={(e)=>{setitem({...item , term : e.value})}}></Select>
+          <Select isSearchable={false} options={terms} value={item.term.trim()? {label:item.term,value:item.term}: '' } onChange={(e)=>{setitem({...item , term : e.value})}}></Select>
         </div>
         <div className="col-6 pt-1">
           <label htmlFor="photo" className="col-12 p-0 text-left">Photo</label>
-          <Select options={photos} value={item.photo.trim()? {label:item.photo,value:item.photo}: '' } onChange={(e)=>{setitem({...item , photo : e.value})}}></Select>
+          <Select  isSearchable={false} inputprops={{ readOnly : true}} options={photos} value={item.photo.trim()? {label:item.photo,value:item.photo}: '' } onChange={(e)=>{setitem({...item , photo : e.value})}}></Select>
         </div>
-        <div className="col-6pt-1 ">
+        <div className="col-6 pt-1 ">
           <label htmlFor="Delivery_Date" className="col-12 text-left pl-0">Delivery Date</label>
           <input type="Date" className="form-control col-12" onChange={(e)=>{ setitem({...item , deliveryDate : e.target.value}) }} value={item.deliveryDate} />
         </div>
